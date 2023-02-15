@@ -1,19 +1,8 @@
 # lib_forms_vue
 
-## Project setup
-```
-npm install
-```
+Библиотека компонентов с использованием bootstrap.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- Формы, генератор форм
+- Список, генератор списка с редактированием и удалением в отдельном окне
+- Таблица, генератор таблицы с редактированием и удалением в отдельном окне
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
