@@ -17,12 +17,39 @@
       <div class="container">
         <h3>Списки</h3>
         <div class="container-inner">
-          <div style="width: 300px">
-            <list :form_name="'form2'" :table_name="'table1'" :filter_field="'text_field1'">
-              <template v-slot:default="p">
-                {{ p.oItem.text_field1 }}
-              </template>
-            </list>
+          <h3>Обычный список</h3>
+          <div style="display: flex">
+            <div style="width: 300px">
+              <list :form_name="'form2'" :table_name="'table1'" :filter_field="'text_field1'">
+                <template v-slot:default="p">
+                  {{ p.oItem.text_field1 }}
+                </template>
+              </list>
+            </div>
+          </div>
+          <h3>Списки со связями</h3>
+          <div style="display: flex">
+            <div style="width:300px">
+              <list :form_name="'list1'" :table_name="'list1'" :filter_field="'name'" v-model="oList1Selection">
+                <template v-slot:default="p">
+                  {{ p.oItem.name }}
+                </template>
+              </list>
+            </div>
+            <div style="width:300px">
+              <list :form_name="'list2'" :table_name="'list2'" :filter_field="'name'" v-model="oList2Selection" :relation_field="'list1_relation_id'">
+                <template v-slot:default="p">
+                  {{ p.oItem.name }}
+                </template>
+              </list>
+            </div>
+            <div style="width:300px">
+              <list :form_name="'list3'" :table_name="'list3'" :filter_field="'name'" v-model="oList3Selection" :relation_field="'list2_relation_id'">
+                <template v-slot:default="p">
+                  {{ p.oItem.name }}
+                </template>
+              </list>
+            </div>
           </div>
         </div>
       </div>
@@ -56,6 +83,10 @@ export default {
   data() {
     return {
       sMode: "tables",
+
+      oList1Selection: null,
+      oList2Selection: null,
+      oList3Selection: null,
     }
   }
 }

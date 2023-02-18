@@ -148,7 +148,37 @@ export default createStore({
                         label: "Текстовое поле 3",
                         type: "text",
                     },
-                }
+                },
+                list1: {
+                    name: {
+                        label: "Название",
+                        type: "text",
+                    },
+                },
+                list2: {
+                    name: {
+                        label: "Название",
+                        type: "text",
+                    },
+                    list1_relation_id: {
+                        label: "list1_relation",
+                        type: "relation",
+                        table: "list1",
+                        output_field: "name"
+                    },
+                },
+                list3: {
+                    name: {
+                        label: "Название",
+                        type: "text",
+                    },
+                    list2_relation_id: {
+                        label: "list2_relation",
+                        type: "relation",
+                        table: "list2",
+                        output_field: "name"
+                    },
+                },                
             },
             oEditWindow: {
                 form2:{
@@ -156,6 +186,18 @@ export default createStore({
                     edit_item: {},
                 },
                 table2:{
+                    window_show: false,
+                    edit_item: {},
+                },
+                list1:{
+                    window_show: false,
+                    edit_item: {},
+                },
+                list2:{
+                    window_show: false,
+                    edit_item: {},
+                },
+                list3:{
                     window_show: false,
                     edit_item: {},
                 }
@@ -172,6 +214,7 @@ export default createStore({
                         { id:6, text_field1: "Текстовое поле 6", text_field2: "Текстовое поле 6", text_field3: "Текстовое поле 6", },
                     ],
                     selection_id: null,
+                    selection_item: null,
                 },
                 table2: {
                     last_index: 15,
@@ -192,13 +235,67 @@ export default createStore({
                         { id:14, field1: "4", field2: "444", text_field3: "789", },
                         { id:15, field1: "5", field2: "444", text_field3: "789", },
                     ],
+                    selection_item: null,
                     selection_id: null,
                     filter: {
                         field1: "", 
                         field2: "", 
                         text_field3: "",
                     }
-                }
+                },
+                list1: {
+                    last_index: 4,
+                    data: [
+                        { id:1, name: "1111" },
+                        { id:2, name: "2222" },
+                        { id:3, name: "3333" },
+                        { id:4, name: "4444" },
+                    ],
+                    selection_id: null,
+                    selection_item: null,
+                    filter: {
+                        name: "", 
+                    }
+                },
+                list2: {
+                    last_index: 4,
+                    data: [
+                        { id:1, name: "1111", list1_relation_id: 1 },
+                        { id:2, name: "1111", list1_relation_id: 1 },
+                        { id:3, name: "1111", list1_relation_id: 1 },
+                        { id:4, name: "1111", list1_relation_id: 1 },
+                        { id:5, name: "1111", list1_relation_id: 1 },
+                        { id:6, name: "2222", list1_relation_id: 2 },
+                        { id:7, name: "2222", list1_relation_id: 2 },
+                        { id:8, name: "2222", list1_relation_id: 2 },
+                        { id:9, name: "3333", list1_relation_id: 3 },
+                        { id:10, name: "4444", list1_relation_id: 4 },
+                    ],
+                    selection_id: null,
+                    selection_item: null,
+                    filter: {
+                        name: "", 
+                    }
+                },
+                list3: {
+                    last_index: 4,
+                    data: [
+                        { id:1, name: "1111", list2_relation_id: 1 },
+                        { id:2, name: "1111", list2_relation_id: 1 },
+                        { id:3, name: "1111", list2_relation_id: 1 },
+                        { id:4, name: "1111", list2_relation_id: 1 },
+                        { id:5, name: "2222", list2_relation_id: 2 },
+                        { id:6, name: "2222", list2_relation_id: 2 },
+                        { id:7, name: "2222", list2_relation_id: 2 },
+                        { id:8, name: "3333", list2_relation_id: 3 },
+                        { id:9, name: "4444", list2_relation_id: 4 },
+                    ],
+                    selection_id: null,
+                    selection_item: null,
+                    filter: {
+                        name: "", 
+                    }
+                },
             },
             oForms: {
                 form1: {
@@ -234,7 +331,18 @@ export default createStore({
                     field1: "",
                     field2: "",
                     text_field3: "",
-                }
+                },
+                list1: {
+                    name: ""
+                },
+                list2: {
+                    name: "",
+                    list1_relation_id: null,
+                },
+                list3: {
+                    name: "",
+                    list2_relation_id: null,
+                },
             },
         }
     },
@@ -257,7 +365,6 @@ export default createStore({
         fnShowEditWindow(state, { sFormName, oItem }) {
             state.oEditWindow[sFormName].window_show = true
             state.oEditWindow[sFormName].edit_item = oItem
-            console.log('>>>', oItem)
             for (var sN in state.oForms[sFormName]) {
                 if (sN in oItem) {
                     state.oForms[sFormName][sN] = oItem[sN]
